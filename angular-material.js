@@ -8408,7 +8408,7 @@ function SelectProvider($$interimElementProvider) {
       onShow: onShow,
       onRemove: onRemove,
       hasBackdrop: true,
-      disableParentScroll: true,
+      disableParentScroll: false, // TODO: fix, messes up layout when enabled
       themable: true
     };
 
@@ -8456,10 +8456,10 @@ function SelectProvider($$interimElementProvider) {
       } else if (opts.loadingAsync) {
         scope.$$loadingAsyncDone = true;
       }
-      // TODO: fix, messes up layout
-      //if (opts.disableParentScroll) {
-      //  opts.restoreScroll = $mdUtil.disableScrollAround(opts.target);
-      //}
+      // TODO: fix, messes up layout when enabled
+      if (opts.disableParentScroll) {
+        opts.restoreScroll = $mdUtil.disableScrollAround(opts.target);
+      }
       // Only activate click listeners after a short time to stop accidental double taps/clicks
       // from clicking the wrong item
       $timeout(activateInteraction, 75, false);
